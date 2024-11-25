@@ -98,6 +98,9 @@ export default function Header() {
             {(currentUser.role === "admin" || currentUser.role === "publisher") && <Link to={'/dashboard?tab=dash'}>
               <Dropdown.Item>Dashboard</Dropdown.Item>
             </Link>}
+            {currentUser.role === "editor" && <Link to={'/dashboard?tab=approve'}>
+              <Dropdown.Item>Approve</Dropdown.Item>
+            </Link>}
             <Link to={'/dashboard?tab=profile'}>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
