@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function PostCard({ post }) {
   return (
-    <div className='group relative w-full border border-teal-500 hover:border-2 h-[400px] overflow-hidden rounded-lg sm:w-[430px] transition-all'>
+    <div className='group relative w-full border border-teal-500 hover:border-2 h-[390px] overflow-hidden rounded-lg sm:w-[380px] transition-all'>
       <div className='absolute top-2 left-2 flex gap-2 z-30'>
         {post.userId === "67440ffa7d4f85d83949c540" && (
           <span className='bg-blue-500 text-white text-xs font-bold py-1 px-2 rounded'>
