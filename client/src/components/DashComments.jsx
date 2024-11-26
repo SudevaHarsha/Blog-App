@@ -16,7 +16,28 @@ export default function DashComments() {
         const res = await fetch(`/api/comment/getcomments`);
         const data = await res.json();
         if (res.ok) {
-          setComments(data.comments);
+          if (currentUser.role === "publisher") {
+            // Fetch the posts of the current publisher
+            const res2 = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
+            const postData = await res2.json();
+
+            if (res2.ok) {
+              // Get the post IDs of the publisher's posts
+              const publisherPostIds = postData.posts.map((post) => post._id);
+
+              // Filter comments to include only those related to the publisher's posts
+              const filteredComments = data.comments.filter((comment) =>
+                publisherPostIds.includes(comment.postId)
+              );
+
+              setComments(filteredComments);
+              setShowMore(filteredComments.length >= 9);
+            }
+          } else if (currentUser.role === "admin") {
+            // Admin gets all comments
+            setComments(data.comments);
+            setShowMore(data.comments.length >= 9);
+          }
           if (data.comments.length < 9) {
             setShowMore(false);
           }
@@ -25,7 +46,7 @@ export default function DashComments() {
         console.log(error.message);
       }
     };
-    if (currentUser.isAdmin) {
+    if (currentUser.role === "admin" || currentUser.role === "publisher") {
       fetchComments();
     }
   }, [currentUser._id]);
@@ -73,7 +94,7 @@ export default function DashComments() {
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-      {currentUser.isAdmin && comments.length > 0 ? (
+      {(currentUser.role === "admin" || currentUser.role === "publisher") && comments.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>

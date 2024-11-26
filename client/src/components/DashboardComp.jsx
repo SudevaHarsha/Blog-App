@@ -57,7 +57,7 @@ export default function DashboardComp() {
         const data = await res.json();
         if (res.ok) {
           if (currentUser.role === "publisher") {
-            const publisherPostIds = posts.map(post => post._id);
+            const publisherPostIds = posts && posts.map(post => post._id);
 
             // Filter comments where the postId matches any of the publisher's postIds
             const filteredComments = data.comments.filter(comment =>

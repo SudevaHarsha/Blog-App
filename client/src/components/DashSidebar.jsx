@@ -110,6 +110,10 @@ export default function DashSidebar() {
                   Users
                 </Sidebar.Item>
               </Link>
+            </>
+          )}
+          {
+            (currentUser.role === "admin" || currentUser.role === "publisher") && (
               <Link to='/dashboard?tab=comments'>
                 <Sidebar.Item
                   active={tab === 'comments'}
@@ -119,8 +123,8 @@ export default function DashSidebar() {
                   Comments
                 </Sidebar.Item>
               </Link>
-            </>
-          )}
+            )
+          }
           <Sidebar.Item
             icon={HiArrowSmRight}
             className='cursor-pointer'
