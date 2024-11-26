@@ -81,7 +81,7 @@ export default function DashPosts() {
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-      {currentUser.isEditor && pendingPosts.length > 0 ? (
+      {currentUser.role === "editor" && pendingPosts.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>
@@ -142,9 +142,9 @@ export default function DashPosts() {
           )}
         </>
       ) : (
-        <p>You have no posts yet!</p>
+        <p>You have no new posts to approve yet!</p>
       )}
-      {currentUser.isEditor && approvedPosts.length > 0 ? (
+      {currentUser.role === "editor" && approvedPosts.length > 0 ? (
         <>
           <Table hoverable className='shadow-md mt-4'>
             <Table.Head>
