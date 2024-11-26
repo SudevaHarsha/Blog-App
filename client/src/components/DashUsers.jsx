@@ -335,9 +335,9 @@ export default function DashUsers() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Button color="teal" className='mt-2' onClick={() => setShowCreateModal(true)}>
+      {currentUser.role === "admin" && <Button color="teal" className='mt-2' onClick={() => setShowCreateModal(true)}>
         Create User
-      </Button>
+      </Button>}
     </div >
   );
 }
